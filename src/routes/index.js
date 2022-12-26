@@ -7,7 +7,6 @@ const Loadable = Component => props => (
   </Suspense>
 );
 
-// Error pages
 const Main = Loadable(lazy(() => import('pages/Main')));
 
 const Router = () => useRoutes([

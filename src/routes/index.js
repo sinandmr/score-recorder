@@ -8,11 +8,16 @@ const Loadable = Component => props => (
 );
 
 const Main = Loadable(lazy(() => import('pages/Main')));
+const Team = Loadable(lazy(() => import('pages/Team')));
 
 const Router = () => useRoutes([
   {
     path: "/",
     element: <Main/>,
+  },
+  {
+    path: '/team',
+    element: <Team/>
   }
 ]);
 

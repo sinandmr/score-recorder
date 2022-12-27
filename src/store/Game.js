@@ -4,7 +4,8 @@ export const Game = createSlice({
   name: 'game',
   initialState: {
     game: '',
-    rounds: '123',
+    wins: '', // for "Tavla (Backgammon)" game
+    rounds: '2',
     numberOfTeams: '',
     teams: [],
   },

@@ -1,17 +1,21 @@
+export const OKEY_101 = 'uno-flip';
+export const UNO = '101';
+export const TAVLA = 'tavla';
+
 const games = [
   {
-    id: 'uno-flip',
-    title: 'UNO Flip',
+    id: UNO,
+    title: 'UNO',
     to: '/uno'
   },
   {
-    id: '101',
+    id: OKEY_101,
     title: '101 Okey',
     to: '/101'
 
   },
   {
-    id: 'tavla',
+    id: TAVLA,
     title: 'Tavla',
     to: '/tavla'
   }

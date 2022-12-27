@@ -1,12 +1,14 @@
 import classnames from 'classnames';
+import { forwardRef } from 'react';
 
-const Input = ({ type = 'text', styles, ...rest }) => {
+const Input = forwardRef(({ type = 'text', styles, ...rest }, ref) => {
   return (
     <input
       type={type}
+      ref={ref}
       {...rest}
-      className={classnames('placeholder:text-opacity-70 flex-1 border-solid border-2 border-secondary rounded-xl text-secondary pl-3', styles)}
+      className={classnames('min-h-[2rem] text-center placeholder:text-opacity-70 flex-1 border-solid border-2 border-secondary rounded-xl text-secondary pl-3', styles)}
     />
   )
-}
+});
 export default Input;

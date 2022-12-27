@@ -4,8 +4,10 @@ import Input from 'components/Input';
 
 const Team = () => {
   return (
-    <Page styles={'overflow-scroll'}>
-      <p className={'text-main text-3xl'}>Takımlarını Seç</p>
+    <Page styles={'overflow-scroll md:w-2/5'}>
+      <p className={'text-main text-3xl font-bold'}>Takımlarını Seç</p>
+      <p className={'text-main text-3xl font-bold'}>Kaç Takım Olduğunu Yaz</p>
+      <Input type={'number'} placeholder={'Takım Sayısı'} styles={'text-center'}/>
       <div className={'flex md:flex-row sm:flex-col gap-4 flex-wrap justify-center'}>
         <div
           className={' text-center border-solid border-2 border-secondary rounded-2xl p-3 space-y-4'}>
@@ -24,9 +26,9 @@ const Team = () => {
       </div>
       <div className={'space-y-4'}>
         <p className={'text-main text-2xl'}>Oyun Sayısı</p>
-        <Input styles={''} placeholder={'11'} type={'number'}/>
+        <Input placeholder={'11 El'} type={'number'}/>
       </div>
-      <Button to={'/game'}>Oluştur</Button>
+      <Button to={'/score'}>İlerle</Button>
     </Page>
   )
 }

@@ -4,7 +4,7 @@ import games from 'constants/games';
 
 const Main = () => {
   return (
-    <Page styles={'overflow-scroll'}>
+    <Page styles={'overflow-scroll md:w-1/5'}>
       <p className={'text-black text-3xl'}>Oyununu Seç</p>
       <div className={'w-full flex flex-col items-center gap-5'}>
         {

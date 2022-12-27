@@ -9,6 +9,7 @@ const Loadable = Component => props => (
 
 const Main = Loadable(lazy(() => import('pages/Main')));
 const Team = Loadable(lazy(() => import('pages/Team')));
+const Score = Loadable(lazy(() => import('pages/Score')));
 
 const Router = () => useRoutes([
   {
@@ -18,6 +19,10 @@ const Router = () => useRoutes([
   {
     path: '/team',
     element: <Team/>
+  },
+  {
+    path: '/score',
+    element: <Score/>
   }
 ]);
 

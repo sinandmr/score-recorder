@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 
-const Button = ({ text, to, ...rest }) => {
+const Button = ({ children, to, styles, ...rest }) => {
   return (
     <button
+      className={classnames( 'text-white h-12 w-3/4 bg-main rounded-2xl hover:text-main hover:bg-secondary hover:border-solid hover:border-2 hover:border-main', styles)}
       {...rest}
-      className={'h-12 w-3/4 bg-main rounded-2xl hover:text-black hover:bg-green-500 hover:border-solid hover:border-4 hover:border-black'}>
+    >
       <Link to={to}>
-        {text}
+        {children}
       </Link>
     </button>
   )

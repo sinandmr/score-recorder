@@ -2,7 +2,7 @@ import Router from 'routes';
 
 function App() {
   return (
-    <div className={'h-screen bg-main text-center text-white flex  items-center justify-center'}>
+    <div className={'h-screen w-screen bg-main overflow-hidden flex items-center'}>
       <Router/>
     </div>
   );

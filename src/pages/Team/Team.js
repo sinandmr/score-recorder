@@ -1,35 +1,52 @@
+import { createRef, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Page from 'components/Page';
 import Button from 'components/Button';
-import Input from 'components/Input';
+import useGame from 'hooks/useGame';
+import { OKEY_101, TAVLA } from 'constants/games';
+import { setState } from 'store/Game';
+import Step1 from './components/Step1';
+import Step2 from './components/Step2';
+import { useNavigate } from 'react-router-dom';
+import teams from 'constants/teams';
+import { toast, Toaster } from 'react-hot-toast';
 
 const Team = () => {
+  const { game, numberOfTeams } = useGame();
+  const navigate = useNavigate();
+  const [next, setNext] = useState(game === TAVLA || game === OKEY_101 || false);
+  const dispatch = useDispatch();
+  const countRef = useRef();
+  let teamRefs = useRef([]);
+
+  const arrayLength = teams.length < +numberOfTeams + 1 ? teams.length : +numberOfTeams + 1;
+  teamRefs.current = Array(arrayLength).fill().map(
+    (ref, index) => teamRefs.current[index] = createRef()
+  );
+
+  const handleClick = e => {
+    e.preventDefault();
+    if (!next) {
+      if (!countRef.current?.value) return toast.error('Tüm Alanları Doldurun')
+      const { value } = countRef.current
+      setNext(true);
+      dispatch(setState({ name: 'numberOfTeams', data: value }))
+    } else {
+      if (teamRefs.current?.some(ref => !ref?.current?.value)) return toast.error('Tüm Alanları Doldurun')
+      // teamRefs.current.f(ref => ref && console.log(ref.current?.value))
+      navigate('/score')
+    }
+  }
+
   return (
     <Page styles={'overflow-scroll md:w-2/5'}>
-      <p className={'text-main text-3xl font-bold'}>Takımlarını Seç</p>
-      <p className={'text-main text-3xl font-bold'}>Kaç Takım Olduğunu Yaz</p>
-      <Input type={'number'} placeholder={'Takım Sayısı'} styles={'text-center'}/>
-      <div className={'flex md:flex-row sm:flex-col gap-4 flex-wrap justify-center'}>
-        <div
-          className={' text-center border-solid border-2 border-secondary rounded-2xl p-3 space-y-4'}>
-          <p className={'text-black'}>
-            Birinci Takım
-          </p>
-          <Input placeholder={'Develer'}/>
-        </div>
-        <div
-          className={' text-center border-solid border-2 border-secondary rounded-2xl p-3 overflow-hidden space-y-4'}>
-          <p className={'text-black'}>
-            İkinci Takım
-          </p>
-          <Input placeholder={'Cüceler'}/>
-        </div>
-      </div>
-      <div className={'space-y-4'}>
-        <p className={'text-main text-2xl'}>Oyun Sayısı</p>
-        <Input placeholder={'11 El'} type={'number'}/>
-      </div>
-      <Button to={'/score'}>İlerle</Button>
+      {
+        !next ? <Step1 ref={countRef}/> : <Step2 ref={teamRefs}/>
+      }
+      <Button onClick={handleClick}>İlerle</Button>
+      <Toaster/>
     </Page>
   )
 }
 export default Team;
+

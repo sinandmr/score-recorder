@@ -6,7 +6,6 @@ import useGame from 'hooks/useGame';
 
 const Step2 = forwardRef((props, ref) => {
   const { game, numberOfTeams } = useGame();
-  console.log('ref', ref.current)
 
   return (
     <Fragment>

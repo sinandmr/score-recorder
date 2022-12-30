@@ -1,15 +1,15 @@
 import { createRef, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import useGame from 'hooks/useGame';
+import { setState, setTeams } from 'store/Game';
 import Page from 'components/Page';
 import Button from 'components/Button';
-import useGame from 'hooks/useGame';
 import { OKEY_101, TAVLA } from 'constants/games';
-import { setState, setTeams } from 'store/Game';
-import { Step1, Step2 } from './components';
-import { useNavigate } from 'react-router-dom';
 import teams from 'constants/teams';
-import { toast } from 'react-hot-toast';
 import teamDefault from 'constants/teamDefault';
+import { Step1, Step2 } from './components';
 
 const Team = () => {
   const { game, numberOfTeams } = useGame();
@@ -42,7 +42,8 @@ const Team = () => {
       teamRefs.current.forEach((ref, i, arr) => {
         const { value } = ref.current;
         if (arr.length - 1 === i) {
-          dispatch(setState({ name: 'rounds', data: parseInt(value) }))
+          const name = game === TAVLA ? 'wins' : 'rounds';
+          dispatch(setState({ name, data: parseInt(value) }))
           return;
         }
         dispatch(setTeams({

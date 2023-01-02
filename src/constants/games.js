@@ -1,5 +1,5 @@
-export const OKEY_101 = 'uno-flip';
-export const UNO = '101';
+export const OKEY_101 = '101';
+export const UNO = 'uno-flip';
 export const TAVLA = 'tavla';
 
 const games = [

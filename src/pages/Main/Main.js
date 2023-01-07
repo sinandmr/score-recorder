@@ -3,14 +3,27 @@ import Page from 'components/Page/Page';
 import games, { OKEY_101, TAVLA } from 'constants/games';
 import { useDispatch } from 'react-redux';
 import { setState } from 'store/Game';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentState = JSON.parse(window.localStorage.getItem('state'));
+
+  useEffect(() => {
+    if (currentState.game) {
+      navigate('/team');
+    }
+  })
 
   const handleClick = async (e, id) => {
     dispatch(setState({ name: 'game', data: id }))
+    const newState = {...currentState, game: id}
+    window.localStorage.setItem('state', JSON.stringify(newState));
     if ([TAVLA, OKEY_101].includes(id)) {
       dispatch(setState({ name: 'numberOfTeams', data: 2 }))
+      window.localStorage.setItem('state', JSON.stringify({...newState, numberOfTeams: 2}));
     }
   }
 

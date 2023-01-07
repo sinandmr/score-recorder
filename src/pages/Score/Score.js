@@ -1,5 +1,4 @@
-import { createRef, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createRef, useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { v4 } from 'uuid';
 import useGame from 'hooks/useGame';
@@ -7,39 +6,39 @@ import { TAVLA, UNO } from 'constants/games';
 import Page from 'components/Page';
 import Button from 'components/Button';
 import { ScoreBox } from './components';
+import Modal from 'components/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const Score = () => {
   let scoreInputs = useRef([]);
+  const { teams, rounds, game } = useGame();
   const navigate = useNavigate();
-  const { teams, rounds, wins, game } = useGame();
-  const [reset, setReset] = useState(false);
   const gameIsTavla = game === TAVLA;
   const gameIsUno = game === UNO;
   const maxScore = Math.max(...teams.map(team => team.total));
-  const isOver = gameIsUno ? rounds <= maxScore : gameIsTavla ? wins <= maxScore : rounds === teams.reduce((acc, cur) => cur.scores.length < acc ? cur.scores.length : acc, 999);
+  const isOver = gameIsUno ? rounds <= maxScore : gameIsTavla ? rounds <= maxScore : rounds === teams.reduce((acc, cur) => cur.scores.length < acc ? cur.scores.length : acc, 999);
   const sortedTeams = [...teams].sort((a, b) => a.total - b.total).map((team, i) => `${i + 1}-) ${team.name} takımı - ${team.total} puan`)
 
   useEffect(() => {
-    if (!teams || teams.length === 0 || reset) {
-      // TODO: reset
-      navigate('/');
+      if (!game) navigate('/');
     }
-  })
+  )
 
   scoreInputs.current = Array(teams.length).fill().map(
     (ref, index) => scoreInputs.current[index] = createRef()
   );
 
   const handleClick = type => {
+    if (type === 'restart') {
+      return toast(t => <Modal t={t} type={'restart'}/>)
+    }
     const { name: leaderTeam } = teams[0].total - teams[1].total > 0 ? teams[gameIsTavla ? 0 : 1] : teams[gameIsTavla ? 1 : 0];
     const diff = Math.abs(teams[1].total - teams[0].total);
     const text = type === 'winner' ? ' kazandı' : 'önde';
     if (diff === 0) return toast('Skorlar Eşit', { icon: '📢' });
     if (!gameIsUno) return toast.success(`${leaderTeam} takımı ${diff} puan fark ile ${text}`
     );
-    toast(
-      sortedTeams.join('\n')
-    );
+    toast(sortedTeams.join('\n'));
   }
 
   return (
@@ -64,7 +63,7 @@ const Score = () => {
           </Button>
         )
       }
-      <Button onClick={() => setReset(true)} styles={'md:w-2/5 sm:w-4/5 min-h-[3rem] bg-secondary text-main'}>
+      <Button onClick={() => handleClick('restart')} styles={'md:w-2/5 sm:w-4/5 min-h-[3rem] bg-secondary text-main'}>
         Yeni Oyuna Başla
       </Button>
     </Page>

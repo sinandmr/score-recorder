@@ -13,11 +13,15 @@ const ScoreBox = ({ team, index, scoreInputs, isOver }) => {
   const dispatch = useDispatch();
   const gameIsTavla = game === TAVLA;
   const gameIsUno = game === UNO;
+  const currentState = JSON.parse(window.localStorage.getItem('state'));
 
   const handleAddScore = index => {
     const score = gameIsTavla ? 1 : scoreInputs.current[index].current?.value;
     if (!score) return toast.error('Tüm Alanları Doldurun');
-    return dispatch(setScore({ index, score }))
+    dispatch(setScore({ index, score }))
+    currentState.teams[index].scores.push(parseInt(score))
+    currentState.teams[index].total += parseInt(score)
+    window.localStorage.setItem('state', JSON.stringify(currentState));
   }
 
   const handlePenalty = index => {

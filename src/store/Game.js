@@ -1,14 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TAVLA } from 'constants/games';
 
+export const setInitialState = () => {
+  const initialState = {
+    game: '',
+    rounds: '',
+    numberOfTeams: '',
+    teams: []
+  };
+  window.localStorage.setItem('state', JSON.stringify(initialState));
+  return initialState;
+}
+
+const getInitialState = () => {
+  const localState = window.localStorage.getItem('state');
+  if (localState) {
+    return JSON.parse(localState);
+  }
+  return setInitialState();
+}
+
 export const Game = createSlice({
   name: 'game',
   initialState: {
-    game: '',
-    rounds: '', // for OKEY_101 and UNO
-    wins: '', // for TAVLA
-    numberOfTeams: '',
-    teams: []
+    game: getInitialState().game || '',
+    rounds: getInitialState().rounds || '', // for OKEY_101 and UNO
+    numberOfTeams: getInitialState().numberOfTeams || '',
+    teams: getInitialState().teams || [],
   },
   reducers: {
     setState: (state, action) => {

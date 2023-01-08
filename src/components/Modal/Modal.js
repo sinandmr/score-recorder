@@ -33,7 +33,7 @@ const Modal = ({ index, t, type = 'penalty' }) => {
 
   return (
     <div className={'flex flex-col'}>
-      <b>
+      <b className={'text-center'}>
         {
           type === 'penalty' ? `${game === TAVLA ? 'MARS (2 Puan)' : 'Ceza'} eklemeyi onaylıyor musunuz?` : (
             'Oyunu bitirmek istediğinize emin misiniz?'

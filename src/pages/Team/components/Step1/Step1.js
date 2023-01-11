@@ -10,7 +10,7 @@ const Step1 = forwardRef((props, ref) => {
           ref={ref}
           type={'number'}
           placeholder={'Takım Sayısı'}
-          styles={'text-center'}/>
+          className={'text-center'}/>
       </form>
     </Fragment>
   )

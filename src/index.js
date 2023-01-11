@@ -11,8 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <Toaster/>
+       <BrowserRouter basename={process.env.BASENAME}>
+      <Toaster/>
         <App/>
       </BrowserRouter>
     </Provider>

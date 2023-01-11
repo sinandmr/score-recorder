@@ -65,11 +65,14 @@ const Team = () => {
   }
 
   return (
-    <Page styles={'overflow-scroll md:w-2/5'}>
+    <Page className={'overflow-scroll md:w-2/5'}>
       {
         !next ? <Step1 ref={countRef}/> : <Step2 ref={teamRefs}/>
       }
       <Button onClick={handleClick}>İlerle</Button>
+      <Button type={'restart'}>
+        Oyun seçimine dön
+      </Button>
     </Page>
   )
 }

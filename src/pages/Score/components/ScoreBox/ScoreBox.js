@@ -57,11 +57,11 @@ const ScoreBox = ({ team, index, scoreInputs, isOver }) => {
           <>
             {
               gameIsTavla || (
-                <Input ref={scoreInputs.current[index]} type={'number'} styles={'max-h-[2rem] w-2/4'}/>
+                <Input ref={scoreInputs.current[index]} type={'number'} className={'max-h-[2rem] w-2/4'}/>
               )
             }
             <Button
-              styles={'md:w-2/4 md:min-w-[8rem] sm:w-full bg-secondary text-main'}
+              className={'md:w-2/4 md:min-w-[8rem] sm:w-full bg-secondary text-main'}
               onClick={() => handleAddScore(index)}>
               {gameIsTavla ? 'Galibiyet Ekle' : 'Ekle'}
             </Button>
@@ -71,7 +71,7 @@ const ScoreBox = ({ team, index, scoreInputs, isOver }) => {
       {
         isOver || gameIsUno || (
           <Button
-            styles={'md:w-2/4 md:min-w-[8rem] sm:w-full overflow-hidden bg-red-600 hover:bg-red-600 text-red-900'}
+            className={'md:w-2/4 md:min-w-[8rem] sm:w-full overflow-hidden bg-red-600 hover:bg-red-600 text-red-900'}
             onClick={() => handlePenalty(index)}>
             {gameIsTavla ? 'Mars (2 Puan)' : 'Ceza (101 Puan)'}
           </Button>

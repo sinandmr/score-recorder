@@ -12,7 +12,7 @@ const Modal = ({ index, t, type = 'penalty' }) => {
   const currentState = JSON.parse(window.localStorage.getItem('state'));
 
   useEffect(() => {
-    if (!teams || teams.length === 0 || restart) {
+    if ((type !== 'restart' || restart) && (!teams || teams.length === 0 || restart)) {
       dispatch(setState({ name: 'game', data: null }));
       window.localStorage.removeItem('state');
       setInitialState();
@@ -35,9 +35,9 @@ const Modal = ({ index, t, type = 'penalty' }) => {
     <div className={'flex flex-col'}>
       <b className={'text-center'}>
         {
-          type === 'penalty' ? `${game === TAVLA ? 'MARS (2 Puan)' : 'Ceza'} eklemeyi onaylıyor musunuz?` : (
-            'Oyunu bitirmek istediğinize emin misiniz?'
-          )
+          type === 'penalty' ? `${game === TAVLA ? 'MARS (2 Puan)' : 'Ceza'} eklemeyi onaylıyor musunuz?` :
+            type === 'restart' ? 'Oyun seçimine dönmek istediğinize emin misiniz?' :
+              'Oyunu bitirmek istediğinize emin misiniz?'
         }
       </b>
       <div className={'flex justify-around mt-3'}>
